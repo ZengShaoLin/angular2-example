@@ -1,6 +1,6 @@
 ﻿## Angular2 Example
 
-本Angular2范例使用ES6撰写，为解决浏览器兼容性问题，使用[gulp-babel](https://github.com/babel/gulp-babel)转换为ES5。
+例子使用ES6撰写，为解决浏览器兼容性问题，使用[gulp-babel](https://github.com/babel/gulp-babel)转换为ES5。
 
 使用
 ------
