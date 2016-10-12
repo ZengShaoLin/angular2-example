@@ -1,6 +1,6 @@
 ﻿## Angular2 Example
 
-例子使用ES6撰写，为解决浏览器兼容性问题，使用[gulp-babel](https://github.com/babel/gulp-babel)转换为ES5。
+例子使用ES6撰写，并使用[gulp-babel](https://github.com/babel/gulp-babel)转换为ES5。
 
 使用
 ------
@@ -18,6 +18,8 @@
     cd angular2-example
     npm install
 
-安装完成后预览界面（可指定端口，如`[]`中的内容，默认端口为3000）：
+安装完成后选择要预览的例子（可指定端口，默认端口为3000）：
     
-    gulp serve [--port=8100]
+    gulp serve --example=hero [--port=8100]
+
+`--example`为必填参数，目前可查看的例子有`quickstart`、`hero`。

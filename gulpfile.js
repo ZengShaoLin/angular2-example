@@ -1,18 +1,25 @@
 var gulp = require('gulp');
 var watch = require('gulp-watch');
-var concat = require('gulp-concat');
 var babel = require('gulp-babel');
 var browserSync = require('browser-sync').create();
 var argv = require('yargs').argv;
 
+var jsPath = [argv.example + '/src/*.js', argv.example + 'src/**/*.js'];
+
 gulp.task('js', function() {
-    return gulp.src('js/*.js')
+    if(typeof argv.example !== 'string' || argv.example === '') {
+        throw new Error('--example parameter is needed and content cant be null');
+    }
+
+    return gulp.src(jsPath)
         .pipe(babel({
             presets: ['es2015'],
-            plugins: ['transform-remove-strict-mode']
+            plugins: [
+                'transform-remove-strict-mode', 
+                'transform-decorators-legacy'
+            ]
         }))
-        .pipe(concat('es5.bundle.js'))
-        .pipe(gulp.dest('./'));
+        .pipe(gulp.dest('./' + argv.example + '/dist/'));
 });
 
 gulp.task('jsWatch', ['js'], function() {
@@ -20,16 +27,17 @@ gulp.task('jsWatch', ['js'], function() {
 });
 
 gulp.task('serve', ['js'], function() {
-    watch('js/*.js', function() {
+    watch(jsPath, function() {
         gulp.start('jsWatch');
     });
-    watch(['index.html', 'css/*.css'], function() {
+    watch([argv.example + '.html', argv.example + '/css/*.css', argv.example + '/src/*.html', argv.example + '/src/**/*.html'], function() {
         browserSync.reload();
     });
 
     browserSync.init({
         server: {
-            baseDir: './'
+            baseDir: './',
+            index: argv.example + '.html'
         },
         host: 'localhost',
         port: argv.port || 3000,
