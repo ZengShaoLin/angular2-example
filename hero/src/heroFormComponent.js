@@ -1,4 +1,4 @@
-import { Component, ReflectiveInjector, Injector } from '@angular/core';
+import { Component } from '@angular/core';
 import HeroService from 'heroService';
 import Hero from 'hero';
 
@@ -8,10 +8,7 @@ import Hero from 'hero';
     templateUrl: 'heroFormComponent.html'
 })
 export default class HeroFormComponent {
-    constructor() {
-        let injector = ReflectiveInjector.resolveAndCreate([HeroService]),
-            heroService = injector.get(HeroService);
-
+    constructor(heroService: HeroService) {
         this.powers = heroService.getPowers();
         this.item = new Hero(18, 'Dr IQ', this.powers[0], 'Chuck Overstreet');
         this.submitted = false;

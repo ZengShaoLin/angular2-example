@@ -1,0 +1,10 @@
+{
+    "presets": ["es2015", "angular2"],
+    "ignore": [
+        "node_modules/**"
+    ],
+    "comments": true,
+    "plugins": [
+        "transform-remove-strict-mode"
+    ]
+}

@@ -1,4 +1,4 @@
-import { Component, ReflectiveInjector } from '@angular/core';
+import { Component } from '@angular/core';
 import HeroService from 'heroService';
 
 @Component({
@@ -8,10 +8,7 @@ import HeroService from 'heroService';
     providers: []
 })
 export default class HeroInfoComponent {
-     constructor() {
-        let injector = ReflectiveInjector.resolveAndCreate([HeroService]),
-            heroService = injector.get(HeroService);
-
+     constructor(heroService: HeroService) {
         this.list = heroService.getHeros();
     }
 

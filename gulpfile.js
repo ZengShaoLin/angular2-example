@@ -12,13 +12,7 @@ gulp.task('js', function() {
     }
 
     return gulp.src(jsPath)
-        .pipe(babel({
-            presets: ['es2015'],
-            plugins: [
-                'transform-remove-strict-mode', 
-                'transform-decorators-legacy'
-            ]
-        }))
+        .pipe(babel({ babelrc: true }))
         .pipe(gulp.dest('./' + argv.example + '/dist/'));
 });
 

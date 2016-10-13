@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
+import LoggerService from 'loggerService';
 import Hero from 'hero';
 
 @Injectable()
 export default class HeroService {
-    constructor() {}
+    constructor(logger: LoggerService) {
+        this.logger = logger;
+    }
 
     getHeros() {
+        this.logger.log('getHeros');
+
         const heroList = [
             new Hero(11, 'Mr. Nice', undefined, undefined, false),
             new Hero(12, 'Narco', undefined, undefined, false),
@@ -22,9 +27,9 @@ export default class HeroService {
     }
 
     getPowers() {
+        this.logger.log('getPowers');
+        
         const powerList = ['Really Smart', 'Super Flexible', 'Super Hot', 'Weather Changer'];
         return powerList;
     }
 }
-
-  
