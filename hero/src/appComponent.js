@@ -1,6 +1,6 @@
 import { Component, Inject, Optional } from '@angular/core';
 import { ConfigProvider } from 'configService';
-import HeroService from 'heroService';
+import HttpService from 'httpService';
 
 @Component({
     selector: 'my-app',
@@ -9,7 +9,7 @@ import HeroService from 'heroService';
             <div class="row">
                 <div class="col-md-offset-2 col-md-8">
                     <div [hidden]="show">
-                        <h1>{{ systemName }} : Hero List <small>Version: {{ config.version }}</small></h1>
+                        <h1><span [innerHTML]="systemName"></span> : Hero List <small>Version: {{ config?.version }}</small></h1>
                         <div class="row row-space">
                             <div class="col-md-12">
                                 <button class="btn btn-default" (click)="showControl()">Show Hero Form</button>
@@ -18,7 +18,7 @@ import HeroService from 'heroService';
                         <hero-info></hero-info>
                     </div>
                     <div [hidden]="!show">
-                        <h1>{{ systemName }} : Hero Form <small>Author: {{ config.author }}</small></h1>
+                        <h1>{{ systemName }} : Hero Form <small>Author: {{ config?.author }}</small></h1>
                         <div class="row row-space">
                             <div class="col-md-12">
                                 <button class="btn btn-default" (click)="showControl()">Show Hero List</button>
@@ -32,9 +32,9 @@ import HeroService from 'heroService';
     `
 })
 export default class AppComponent {
-    constructor(@Optional() @Inject(ConfigProvider) configService: ConfigProvider, heroService: HeroService) {
-        this.config = configService;
-        this.systemName = heroService.getSystemName();
+    constructor(@Optional() @Inject(ConfigProvider) config: ConfigProvider, http: HttpService) {
+        this.config = config;
+        http.getData('sysName').then(data => { this.systemName = data; });
     }
 
     showControl() {

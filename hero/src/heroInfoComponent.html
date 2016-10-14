@@ -4,12 +4,17 @@
         <td class="col-md-5">Name</td>
         <td class="col-md-5">Action</td>
     </tr>
-    <tr *ngFor="let item of list; let i = index;">
+    <tr *ngFor="let item of list; trackBy: trackByList">
         <td class="text-center">{{ item.id }}</td>
         <td class="text-center">{{ item.name }}</td>
         <td class="text-center">
             <button class="btn btn-xs btn-primary" (click)="edit($event)"><i class="glyphicon glyphicon-edit"></i></button>
             <button class="btn btn-xs btn-danger" (click)="del(i)"><i class="glyphicon glyphicon-trash"></i></button>
+        </td>
+    </tr>
+    <tr>
+        <td [attr.colspan]="footerColspan" class="text-right">
+            <h4><strong>Total Heros: {{ list?.length }}</strong></h4>
         </td>
     </tr>
 </table>

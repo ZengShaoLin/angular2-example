@@ -5,13 +5,10 @@ import Hero from 'hero';
 @Injectable()
 export default class HeroService {
     constructor(@Optional() logger: LoggerService, systemName) {
-        this.logger = logger;
-        this.systemName = systemName;
+        Object.assign(this, { logger, systemName });
     }
 
     getHeros() {
-        this.logger.log('getHeros');
-
         const heroList = [
             new Hero(11, 'Mr. Nice', undefined, undefined, false),
             new Hero(12, 'Narco', undefined, undefined, false),
@@ -24,17 +21,20 @@ export default class HeroService {
             new Hero(19, 'Magma', undefined, undefined, true),
             new Hero(20, 'Tornado', undefined, undefined, true)
         ];
+
+        this.logger.log('getHeros');
         return heroList;
     }
 
     getPowers() {
-        this.logger.log('getPowers');
-        
         const powerList = ['Really Smart', 'Super Flexible', 'Super Hot', 'Weather Changer'];
+
+        this.logger.log('getPowers');
         return powerList;
     }
 
     getSystemName() {
+        this.logger.log('getSystemName');
         return this.systemName;
     }
 }

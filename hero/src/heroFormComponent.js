@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import HeroService from 'heroService';
+import HttpService from 'httpService';
 import Hero from 'hero';
 
 @Component({
@@ -8,10 +8,15 @@ import Hero from 'hero';
     templateUrl: 'heroFormComponent.html'
 })
 export default class HeroFormComponent {
-    constructor(heroService: HeroService) {
-        this.powers = heroService.getPowers();
-        this.item = new Hero(18, 'Dr IQ', this.powers[0], 'Chuck Overstreet');
+    constructor(http: HttpService) {
+        this.item = new Hero(18, 'DR IQ', null, 'Chuck Overstreet');
         this.submitted = false;
+
+        http.getData('power').then(data => { 
+            this.powers = data;
+            this.item.power = data[0];
+         })
+        .catch(error => {});
     }
 
     onSubmit() {
@@ -19,13 +24,7 @@ export default class HeroFormComponent {
     }
 
     changeName(name) {
-        let promise = new Promise((resolve, reject) => {
-            setTimeout(() => !name ? reject('error') : resolve('success'), 50);
-        });
-
-        promise
-            .then(data => console.log(data))
-            .catch(error => console.log(error));
+        this.item.name = name.toUpperCase();
     }
 
     clear() {
