@@ -5,15 +5,15 @@ import HeroSerivce from 'heroService';
 export default class HttpService {
     constructor(hero: HeroSerivce) {
         this.hero = hero;
-        this.typeList = { hero: 'getHeros', power: 'getPowers', sysName: 'getSystemName' };
+        this.typeList = { hero: 'getHeros', heroItem: 'getHero', power: 'getPowers', sysName: 'getSystemName' };
     }
 
-    getData(name) {
+    getData(name, param) {
         let promise = new Promise((resolve, reject) => {
             setTimeout(() => { 
-                const data = this.hero[this.typeList[name]]();
+                const data = this.hero[this.typeList[name]](param);
                 resolve(data); 
-            }, 500);
+            }, 300);
         });
         return promise;
     }

@@ -4,40 +4,14 @@ import HttpService from 'httpService';
 
 @Component({
     selector: 'my-app',
-    template: `
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-offset-2 col-md-8">
-                    <div [hidden]="show">
-                        <h1><span [innerHTML]="systemName"></span> : Hero List <small>Version: {{ config?.version }}</small></h1>
-                        <div class="row row-space">
-                            <div class="col-md-12">
-                                <button class="btn btn-default" (click)="showControl()">Show Hero Form</button>
-                            </div>
-                        </div>
-                        <hero-info></hero-info>
-                    </div>
-                    <div [hidden]="!show">
-                        <h1>{{ systemName }} : Hero Form <small>Author: {{ config?.author }}</small></h1>
-                        <div class="row row-space">
-                            <div class="col-md-12">
-                                <button class="btn btn-default" (click)="showControl()">Show Hero List</button>
-                            </div>
-                        </div>
-                        <hero-form></hero-form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `
+    templateUrl: 'hero/src/appComponent.html'
 })
 export default class AppComponent {
     constructor(@Optional() @Inject(ConfigProvider) config: ConfigProvider, http: HttpService) {
-        this.config = config;
-        http.getData('sysName').then(data => { this.systemName = data; });
+        Object.assign(this, { config, http });
     }
 
-    showControl() {
-        this.show = !this.show;
+    ngOnInit() {
+        this.http.getData('sysName').then(data => { this.systemName = data; });
     }
 }

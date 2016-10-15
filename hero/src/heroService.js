@@ -17,13 +17,20 @@ export default class HeroService {
             new Hero(15, 'Magneta', undefined, undefined, false),
             new Hero(16, 'RubberMan', undefined, undefined, false),
             new Hero(17, 'Dynama', undefined, undefined, false),
-            new Hero(18, 'Dr IQ', undefined, undefined, true),
+            new Hero(18, 'Dr IQ', 'Really Smart', 'Chuck Overstreet', true),
             new Hero(19, 'Magma', undefined, undefined, true),
             new Hero(20, 'Tornado', undefined, undefined, true)
         ];
 
         this.logger.log('getHeros');
         return heroList;
+    }
+
+    getHero(id) {
+        const heros = this.getHeros();
+        
+        this.logger.log('getHero');
+        return heros.find((value, key, arr) => value.id === id);
     }
 
     getPowers() {

@@ -3,18 +3,22 @@
 //使用EventEmitter来初始化@Output参数
 
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import HttpService from 'httpService';
 
 @Component({
     moduleId: 'hero/src/',
     selector: 'hero-info',
-    templateUrl: 'heroInfoComponent.html'
+    templateUrl: 'heroInfoComponent.html',
+    outputs: ['routerChange']
 })
 export default class HeroInfoComponent {
-     constructor(http: HttpService) {
-        this.footerColspan = 3;
+     constructor(http: HttpService, router: Router) {
+        Object.assign(this, { http, router, footerColspan: 3 });
+    }
 
-        http.getData('hero')
+    ngOnInit() {
+        this.http.getData('hero')
             .then(data => { this.list = data; })
             .catch(error => {});
     }
@@ -23,11 +27,11 @@ export default class HeroInfoComponent {
         return item.id;
     }
 
-    del(i) {
-        this.list.splice(i, 1);
+    del(index) {
+        this.list.splice(index, 1);
     }
     
-    edit(...params) {
-        console.log(params);
+    edit(id) {
+        this.router.navigateByUrl('/heroForm/' + id);
     }
 }

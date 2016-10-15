@@ -2,18 +2,20 @@ var gulp = require('gulp');
 var watch = require('gulp-watch');
 var babel = require('gulp-babel');
 var browserSync = require('browser-sync').create();
+var historyApiFallback = require('connect-history-api-fallback'); 
 var argv = require('yargs').argv;
 
-var jsPath = [argv.example + '/src/*.js', argv.example + 'src/**/*.js'];
+var example = argv.example;
+var jsPath = [example + '/src/*.js', example + 'src/**/*.js'];
 
 gulp.task('js', function() {
-    if(typeof argv.example !== 'string' || argv.example === '') {
+    if(typeof example !== 'string' || example === '') {
         throw new Error('--example parameter is needed and content cant be null');
     }
 
     return gulp.src(jsPath)
         .pipe(babel({ babelrc: true }))
-        .pipe(gulp.dest('./' + argv.example + '/dist/'));
+        .pipe(gulp.dest('./' + example + '/dist/'));
 });
 
 gulp.task('jsWatch', ['js'], function() {
@@ -24,17 +26,19 @@ gulp.task('serve', ['js'], function() {
     watch(jsPath, function() {
         gulp.start('jsWatch');
     });
-    watch([argv.example + '.html', argv.example + '/css/*.css', argv.example + '/src/*.html', argv.example + '/src/**/*.html'], function() {
+    watch([example + '.html', example + '/css/*.css', example + '/src/*.html', example + '/src/**/*.html'], function() {
         browserSync.reload();
     });
 
     browserSync.init({
         server: {
             baseDir: './',
-            index: argv.example + '.html'
+            index: example + '.html',
+            middleware: [historyApiFallback({ index: '/' + example + '.html' })]
         },
         host: 'localhost',
         port: argv.port || 3000,
-        ghostMode: false
+        ghostMode: false,
+        online: false
     });
 });
