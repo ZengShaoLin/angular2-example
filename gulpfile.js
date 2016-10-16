@@ -10,7 +10,7 @@ var jsPath = [example + '/src/*.js', example + 'src/**/*.js'];
 
 gulp.task('js', function() {
     if(typeof example !== 'string' || example === '') {
-        throw new Error('--example parameter is needed and content cant be null');
+        throw new Error('--example parameter is needed and cant be null');
     }
 
     return gulp.src(jsPath)
@@ -26,7 +26,10 @@ gulp.task('serve', ['js'], function() {
     watch(jsPath, function() {
         gulp.start('jsWatch');
     });
-    watch([example + '.html', example + '/css/*.css', example + '/src/*.html', example + '/src/**/*.html'], function() {
+    watch([example + '/json/*.json', example + '/css/*.css'], function() {
+        browserSync.reload();
+    });
+    watch([example + '.html', example + '/src/*.html', example + '/src/**/*.html'], function() {
         browserSync.reload();
     });
 

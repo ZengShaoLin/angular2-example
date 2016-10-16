@@ -1,0 +1,11 @@
+<div class="row clearfix">
+    <div class="col-md-offset-3 col-md-6">
+        <div class="page-header">
+            <h2>Logger History</h2>
+        </div>
+        <div class="alert alert-warning" *ngFor="let item of historyList;let i = index;">
+            {{ 1 + i }}. {{ item.message }}
+            <span class="pull-right">{{ item.createTime | date: 'yyyy-MM-dd HH:mm:ss' }}</span>
+        </div>
+    </div>
+</div>

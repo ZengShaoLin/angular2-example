@@ -16,12 +16,12 @@ export default class HeroFormComponent {
     }
 
     ngOnInit() {
-        this.http.getData('power')
-            .then(data => { this.powers = data; })
-            .catch(error => {});
+        this.http.getJson('powers').then(data => { this.powers = data; });
 
-        this.route.params.forEach(param => {
-            this.http.getData('heroItem', +param.id).then(data => { this.item = data; });
+        this.http.getJson('heros').then(data => {
+            this.route.params.forEach(param => {
+                this.item = data.find((value, key, arr) => value.id === +param.id);
+            });
         });
     }
 

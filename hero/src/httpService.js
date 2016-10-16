@@ -1,20 +1,29 @@
-import { Injectable } from '@angular/core';
-import HeroSerivce from 'heroService';
+import { Injectable, Optional } from '@angular/core';
+import { Headers, Http } from '@angular/http';
+import 'rxjs/add/operator/toPromise';
+import LoggerService from 'loggerService';
 
 @Injectable()
 export default class HttpService {
-    constructor(hero: HeroSerivce) {
-        this.hero = hero;
-        this.typeList = { hero: 'getHeros', heroItem: 'getHero', power: 'getPowers', sysName: 'getSystemName' };
+    constructor(http: Http, @Optional logger: LoggerService, sysName) {
+        Object.assign(this, { http, logger, sysName });
     }
-
-    getData(name, param) {
+    
+    getJson(name) {
         let promise = new Promise((resolve, reject) => {
-            setTimeout(() => { 
-                const data = this.hero[this.typeList[name]](param);
-                resolve(data); 
-            }, 300);
+            this.logger.log(`get ${ name }`);
+
+            this.http
+                .get(`hero/json/${ name }.json`)
+                .toPromise()
+                .then(response => resolve(response.json()))
+                .catch(error => reject(error));
         });
         return promise;
+    }
+
+    getSysName() {
+        this.logger.log(`get sysName`);
+        return this.sysName;
     }
 }

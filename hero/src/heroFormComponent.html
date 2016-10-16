@@ -1,6 +1,8 @@
 <div class="row">
     <div class="col-md-offset-3 col-md-6">
-        <h3>Hero Detail</h3>
+        <div class="page-header">
+            <h2>Hero Detail</h2>
+        </div>
         <form #heroForm="ngForm" (ngSubmit)="save()">
             <div class="form-group" [class.has-error]="name.invalid">
                 <label for="name">Name</label>

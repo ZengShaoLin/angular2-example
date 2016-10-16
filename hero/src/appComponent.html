@@ -3,7 +3,7 @@
         <nav class="navbar navbar-inverse navbar-static-top">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <span class="navbar-brand" [innerHTML]="systemName"></span>
+                    <span class="navbar-brand" [innerHTML]="config.name"></span>
                 </div>
                 <ul class="nav navbar-nav">
                     <li routerLinkActive="active">
@@ -11,6 +11,9 @@
                     </li>
                     <li routerLinkActive="active">
                         <a routerLink="/heroInfo">Hero List</a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a routerLink="/loggerHistory">Logger History</a>
                     </li>
                 </ul>
             </div>

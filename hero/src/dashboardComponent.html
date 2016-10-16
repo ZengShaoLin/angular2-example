@@ -1,7 +1,8 @@
 <div class="row">
     <div class="col-md-offset-3 col-md-6">
-        <h3><strong>Top Four Heros</strong></h3>
-        <br>
+        <div class="page-header">
+            <h2>Top Four Heros</h2>
+        </div>
         <div class="alert alert-info" *ngFor="let item of list;">
             <span class="hero-margin">No.{{ item.id }}</span>
             <a class="alert-link pointer" (click)="detail(item.id)">{{ item.name }}</a>

@@ -22,7 +22,7 @@ export default class DashboardComponent {
     }
 
     ngOnInit() {
-        this.http.getData('hero').then(data => { this.list = data.slice(1, 5); });
+        this.http.getJson('heros').then(data => { this.list = data.slice(1, 5); });
     }
 
     detail(id) {

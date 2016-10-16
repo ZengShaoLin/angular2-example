@@ -2,6 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 import HeroInfoComponent from 'heroInfoComponent';
 import HeroFormComponent from 'heroFormComponent';
 import DashboardComponent from 'dashboardComponent';
+import LoggerHistoryComponent from 'loggerHistoryComponent';
 
 const routes = [
     {
@@ -20,6 +21,10 @@ const routes = [
     {
         path: 'heroForm/:id',
         component: HeroFormComponent
+    },
+    {
+        path: 'loggerHistory',
+        component: LoggerHistoryComponent
     }
 ];
 

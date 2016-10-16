@@ -1,23 +1,29 @@
 <div class="row">
     <div class="col-md-offset-2 col-md-8">
-        <h3>Hero List</h3>
+        <div class="page-header">
+            <h2>Hero List</h2>
+        </div>
         <table class="table table-striped">
             <tr class="text-center">
                 <td class="col-md-2">ID</td>
-                <td class="col-md-5">Name</td>
-                <td class="col-md-5">Action</td>
+                <td class="col-md-2">Name</td>
+                <td class="col-md-3">Power</td>
+                <td class="col-md-3">Alter Ego</td>
+                <td class="col-md-2">Action</td>
             </tr>
             <tr *ngFor="let item of list; trackBy: trackByList">
                 <td class="text-center">{{ item.id }}</td>
                 <td class="text-center">{{ item.name }}</td>
+                <td class="text-center" [class.text-danger]="!item.power">{{ item.power || 'Not  Clear' }}</td>
+                <td class="text-center" [class.text-danger]="!item.alterEgo">{{ item.alterEgo || 'Not  Clear' }}</td>
                 <td class="text-center">
-                    <button class="btn btn-xs btn-primary" (click)="edit(item.id)"><i class="glyphicon glyphicon-edit"></i></button>
-                    <button class="btn btn-xs btn-danger" (click)="del(i)"><i class="glyphicon glyphicon-trash"></i></button>
+                    <button class="btn btn-xs btn-primary" title="edit" (click)="edit(item.id)"><i class="glyphicon glyphicon-edit"></i></button>
+                    <button class="btn btn-xs btn-danger" title="delete" (click)="del(i)"><i class="glyphicon glyphicon-trash"></i></button>
                 </td>
             </tr>
             <tr>
                 <td [attr.colspan]="footerColspan" class="text-right">
-                    <h4><strong>Total Heros: {{ list?.length }}</strong></h4>
+                    <h4 class="text-info"><strong>Total Heros: {{ list?.length }}</strong></h4>
                 </td>
             </tr>
         </table>

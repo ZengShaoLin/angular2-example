@@ -9,18 +9,15 @@ import HttpService from 'httpService';
 @Component({
     moduleId: 'hero/src/',
     selector: 'hero-info',
-    templateUrl: 'heroInfoComponent.html',
-    outputs: ['routerChange']
+    templateUrl: 'heroInfoComponent.html'
 })
 export default class HeroInfoComponent {
      constructor(http: HttpService, router: Router) {
-        Object.assign(this, { http, router, footerColspan: 3 });
+        Object.assign(this, { http, router, footerColspan: 5 });
     }
 
     ngOnInit() {
-        this.http.getData('hero')
-            .then(data => { this.list = data; })
-            .catch(error => {});
+        this.http.getJson('heros').then(data => { this.list = data; });
     }
 
     trackByList(index, item) {
