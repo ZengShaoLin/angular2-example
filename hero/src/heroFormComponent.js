@@ -1,38 +1,38 @@
 import { Component } from '@angular/core';
-import HeroService from 'heroService';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import HttpService from 'httpService';
 import Hero from 'hero';
 
 @Component({
     moduleId: 'hero/src/',
     selector: 'hero-form',
-    templateUrl: 'heroFormComponent.html'
+    templateUrl: 'heroFormComponent.html',
+    // styleUrls: ['../css/app.css']
 })
 export default class HeroFormComponent {
-    constructor(heroService: HeroService) {
-        this.powers = heroService.getPowers();
-        this.item = new Hero(18, 'Dr IQ', this.powers[0], 'Chuck Overstreet');
-        this.submitted = false;
+    constructor(http: HttpService, location: Location, route: ActivatedRoute) {
+        Object.assign(this, { http, location, route, item: new Hero() });
     }
 
-    onSubmit() {
-        this.submitted = true;
-    }
+    ngOnInit() {
+        this.http.getJson('powers').then(data => { this.powers = data; });
 
-    changeName(name) {
-        let promise = new Promise((resolve, reject) => {
-            setTimeout(() => !name ? reject('error') : resolve('success'), 50);
+        this.http.getJson('heros').then(data => {
+            this.route.params.forEach(param => {
+                this.item = data.find((value, key, arr) => value.id === +param.id);
+            });
         });
-
-        promise
-            .then(data => console.log(data))
-            .catch(error => console.log(error));
     }
 
-    clear() {
-        this.item = new Hero();
+    save() {
+        alert('edit hero success');
+        this.location.back();
     }
 
-    edit() {
-        this.submitted = false;
+    changeName(name) {}
+
+    back() {
+        this.location.back();
     }
 }

@@ -1,15 +1,36 @@
-<table class="table table-striped">
-    <tr class="text-center">
-        <td class="col-md-2">ID</td>
-        <td class="col-md-5">Name</td>
-        <td class="col-md-5">Action</td>
-    </tr>
-    <tr *ngFor="let item of list; let i = index;">
-        <td class="text-center">{{ item.id }}</td>
-        <td class="text-center">{{ item.name }}</td>
-        <td class="text-center">
-            <button class="btn btn-xs btn-primary" (click)="edit($event)"><i class="glyphicon glyphicon-edit"></i></button>
-            <button class="btn btn-xs btn-danger" (click)="del(i)"><i class="glyphicon glyphicon-trash"></i></button>
-        </td>
-    </tr>
-</table>
+<div class="row">
+    <div class="col-md-offset-2 col-md-8">
+        <div class="page-header">
+            <h2>Hero List</h2>
+        </div>
+        <div class="row row-space">
+            <div class="col-md-3 col-md-offset-9">
+                <input type="text" class="form-control" placeholder="Hero Name" name="search" [(ngModel)]="searchName" (keyup.enter)="searchItem()" (blur)="searchItem()">
+            </div>
+        </div>
+        <table class="table table-striped">
+            <tr class="text-center">
+                <td class="col-md-2">ID</td>
+                <td class="col-md-2">Name</td>
+                <td class="col-md-3">Power</td>
+                <td class="col-md-3">Alter Ego</td>
+                <td class="col-md-2">Action</td>
+            </tr>
+            <tr *ngFor="let item of list | async; trackBy: trackByList">
+                <td class="text-center">{{ item.id }}</td>
+                <td class="text-center">{{ item.name }}</td>
+                <td class="text-center" [class.text-danger]="!item.power">{{ item.power || 'Not  Clear' }}</td>
+                <td class="text-center" [class.text-danger]="!item.alterEgo">{{ item.alterEgo || 'Not  Clear' }}</td>
+                <td class="text-center">
+                    <button class="btn btn-xs btn-primary" title="edit" (click)="edit(item.id)"><i class="glyphicon glyphicon-edit"></i></button>
+                    <button class="btn btn-xs btn-danger" title="delete" (click)="del(i)"><i class="glyphicon glyphicon-trash"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td [attr.colspan]="footerColspan" class="text-right">
+                    <h4 class="text-info"><strong>Total Heros: {{ list?.length }}</strong></h4>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

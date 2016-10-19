@@ -1,52 +1,39 @@
-<form #heroForm="ngForm" (ngSubmit)="onSubmit()" [hidden]="submitted">
-    <div class="form-group" [ngClass]="{ 'has-error': name.invalid }">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" name="name" id="name" [(ngModel)]="item.name" #name="ngModel" (ngModelChange)="changeName($event)" required>
-        <div class="help-block">
-            <p [hidden]="name.valid">name is necessary</p>
+<div class="row">
+    <div class="col-md-offset-3 col-md-6">
+        <div class="page-header">
+            <h2>Hero Detail</h2>
         </div>
-    </div>
-    <div class="form-group">
-        <label for="alterEgo">Alter Ego</label>
-        <input type="text" class="form-control" name="alterEgo" id="alterEgo" [(ngModel)]="item.alterEgo">
-    </div>
-    <div class="form-group" [ngClass]="{ 'has-error': power.invalid }">
-        <label for="power">Hero Power</label>
-        <select class="form-control" id="power" name="power" [(ngModel)]="item.power" #power="ngModel" required>
-            <option *ngFor="let power of powers" [value]="power">{{ power }}</option>
-        </select>
-        <div class="help-block">
-            <p [hidden]="power.valid">hero power is necessary</p>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-6">
-                <button type="submit" class="btn btn-danger btn-block" (click)="clear()">Clear Hero</button>
+        <form #heroForm="ngForm" (ngSubmit)="save()">
+            <div class="form-group" [class.has-error]="name.invalid">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" name="name" id="name" [(ngModel)]="item.name" #name="ngModel" (ngModelChange)="changeName($event)" required>
+                <div class="help-block">
+                    <p [hidden]="name.valid">name is necessary</p>
+                </div>
             </div>
-            <div class="col-md-6">
-                <button type="submit" class="btn btn-primary btn-block" [disabled]="heroForm.invalid">Submit</button>
+            <div class="form-group">
+                <label for="alterEgo">Alter Ego</label>
+                <input type="text" class="form-control" name="alterEgo" id="alterEgo" [(ngModel)]="item.alterEgo">
             </div>
-        </div>
-    </div>
-</form>
-<div class="form-horizontal" [hidden]="!submitted">
-    <h2>You submitted the following:</h2>
-    <div class="form-group">
-        <label class="control-label col-md-2">Name</label>
-        <div class="col-md-5 form-control-static">{{ item.name }}</div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-md-2">Alter Ego</label>
-        <div class="col-md-5 form-control-static">{{ item.alterEgo }}</div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-md-2">Power</label>
-        <div class="col-md-5 form-control-static">{{ item.power }}</div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-6">
-            <button class="btn btn-default" (click)="edit()">Edit Hero</button>
-        </div>
+            <div class="form-group" [ngClass]="{ 'has-error': power.invalid }">
+                <label for="power">Hero Power</label>
+                <select class="form-control" id="power" name="power" [(ngModel)]="item.power" #power="ngModel" required>
+                    <option *ngFor="let power of powers" [value]="power">{{ power }}</option>
+                </select>
+                <div class="help-block">
+                    <p [hidden]="power.valid">hero power is necessary</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-default btn-block" (click)="back()">Back</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-primary btn-block" [disabled]="heroForm.invalid">Save</button>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
