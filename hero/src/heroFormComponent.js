@@ -8,7 +8,7 @@ import Hero from 'hero';
     moduleId: 'hero/src/',
     selector: 'hero-form',
     templateUrl: 'heroFormComponent.html',
-    styleUrls: ['../css/app.css']
+    // styleUrls: ['../css/app.css']
 })
 export default class HeroFormComponent {
     constructor(http: HttpService, location: Location, route: ActivatedRoute) {

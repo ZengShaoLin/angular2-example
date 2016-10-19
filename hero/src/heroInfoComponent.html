@@ -3,6 +3,11 @@
         <div class="page-header">
             <h2>Hero List</h2>
         </div>
+        <div class="row row-space">
+            <div class="col-md-3 col-md-offset-9">
+                <input type="text" class="form-control" placeholder="Hero Name" name="search" [(ngModel)]="searchName" (keyup.enter)="searchItem()" (blur)="searchItem()">
+            </div>
+        </div>
         <table class="table table-striped">
             <tr class="text-center">
                 <td class="col-md-2">ID</td>
@@ -11,7 +16,7 @@
                 <td class="col-md-3">Alter Ego</td>
                 <td class="col-md-2">Action</td>
             </tr>
-            <tr *ngFor="let item of list; trackBy: trackByList">
+            <tr *ngFor="let item of list | async; trackBy: trackByList">
                 <td class="text-center">{{ item.id }}</td>
                 <td class="text-center">{{ item.name }}</td>
                 <td class="text-center" [class.text-danger]="!item.power">{{ item.power || 'Not  Clear' }}</td>

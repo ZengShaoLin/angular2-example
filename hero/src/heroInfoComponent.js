@@ -4,7 +4,9 @@
 
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import HttpService from 'httpService';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import HeroSearchService from 'heroSearchService';
 
 @Component({
     moduleId: 'hero/src/',
@@ -12,12 +14,27 @@ import HttpService from 'httpService';
     templateUrl: 'heroInfoComponent.html'
 })
 export default class HeroInfoComponent {
-     constructor(http: HttpService, router: Router) {
-        Object.assign(this, { http, router, footerColspan: 5 });
+     constructor(hero: HeroSearchService, router: Router) {
+        Object.assign(this, { hero, router, footerColspan: 5, searchTerms: new Subject() });
     }
 
     ngOnInit() {
-        this.http.getJson('heros').then(data => { this.list = data; });
+        this.list = this.searchTerms
+            .debounceTime(150)
+            .distinctUntilChanged()
+            .switchMap(term => this.hero.search(term))
+            .catch(error => {
+                console.log(error);
+                return Observable.of([]);
+            });
+    }
+
+    ngAfterViewInit() {
+        this.searchItem();
+    }
+
+    searchItem() {
+        this.searchTerms.next(this.searchName);
     }
 
     trackByList(index, item) {
