@@ -23,12 +23,12 @@
                 <td class="text-center" [class.text-danger]="!item.alterEgo">{{ item.alterEgo || 'Not  Clear' }}</td>
                 <td class="text-center">
                     <button class="btn btn-xs btn-primary" title="edit" (click)="edit(item.id)"><i class="glyphicon glyphicon-edit"></i></button>
-                    <button class="btn btn-xs btn-danger" title="delete" (click)="del(i)"><i class="glyphicon glyphicon-trash"></i></button>
+                    <!-- <button class="btn btn-xs btn-danger" title="delete" (click)="del(i)"><i class="glyphicon glyphicon-trash"></i></button> -->
                 </td>
             </tr>
             <tr>
                 <td [attr.colspan]="footerColspan" class="text-right">
-                    <h4 class="text-info"><strong>Total Heros: {{ list?.length }}</strong></h4>
+                    <h4 class="text-info"><strong>Total Heros: {{ list?.length || 10 }}</strong></h4>
                 </td>
             </tr>
         </table>

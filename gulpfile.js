@@ -2,7 +2,8 @@ var gulp = require('gulp');
 var watch = require('gulp-watch');
 var babel = require('gulp-babel');
 var browserSync = require('browser-sync').create();
-var historyApiFallback = require('connect-history-api-fallback'); 
+var historyApiFallback = require('connect-history-api-fallback');
+var compression = require('compression');
 var argv = require('yargs').argv;
 
 var example = argv.example;
@@ -37,7 +38,7 @@ gulp.task('serve', ['js'], function() {
         server: {
             baseDir: './',
             index: example + '.html',
-            middleware: [historyApiFallback({ index: '/' + example + '.html' })]
+            middleware: [historyApiFallback({ index: '/' + example + '.html' }), compression()]
         },
         host: 'localhost',
         port: argv.port || 3000,
